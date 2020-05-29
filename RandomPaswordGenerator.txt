@@ -1,0 +1,63 @@
+#main module
+
+import random
+from password import *
+def pass_word(pass_length):
+    f=int(input('enter the mode of password? '))
+    if f==1:
+        characters=weak()
+    elif f==2:
+        characters = strong()
+    else:
+        print('we generate normal password for you')
+        characters=normal()
+    pass_list=[]
+    for char in pass_length:
+        password=""
+        for j in range(char):
+            password +=characters[random.randrange(len(characters))]
+        password =  rand_pos(password)
+        pass_list.append(password)
+    return pass_list
+
+def rand_pos(passwrd):
+    for i in range(random.randint(1, 8)):
+        return passwrd
+def main():
+    num = int(input("How many passwords do you want to generate? "))
+    password_Length = []
+    for i in range(0,num):
+        password_Length.append(condition())
+    Password = pass_word(password_Length)
+    for final in range(num):
+        print("Password #" + str(final + 1) + " = " + Password[final])
+main()
+
+
+#password module
+
+def weak():
+    return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+def normal():
+    return 'ABCDEFGHIJKL1234567890MNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+def strong():
+    return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*._abcdefghijklmnopqrstuvwxyz'
+
+my_ans=['y','yes','Yes','Y','YES']
+def condition():
+    length = int(input("Enter the length of Password # "))
+    if length < 3:
+        print("its too weak")
+        ans = int(input('enter the password length with min length of 3# '))
+        if ans < 3:
+            x = input('do we generate with length of 3? ')
+            if x in my_ans:
+                length = 3
+            else:
+                print('we generate your length password , Its too weak!')
+        elif ans >= 3:
+            length = ans
+    elif length > 15:
+        print('its too long we are able to generate with 15 characters')
+        length = 15
+    return length
